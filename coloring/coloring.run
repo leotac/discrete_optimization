@@ -8,3 +8,9 @@ option cplex_options 'mipdisplay=2 symmetry=5';
 solve;
 display colors;
 #display{v in V, c in COLORS : c <= colors.val} assignment[v,c];
+
+
+printf{v in V, c in COLORS : c <= colors.val && assignment[v,c]==1} "%s %s\n",v,c;
+
+print{v in V, c in COLORS : c <= colors.val && assignment[v,c]==1} c;
+print{v in V, c in COLORS : c <= colors.val && assignment[v,c]==1} c > "coloring.out";

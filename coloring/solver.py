@@ -1,6 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+import os
+from subprocess import Popen, PIPE
 
 def solveIt(inputData):
     # Modify this code to run your optimization algorithm
@@ -29,13 +31,15 @@ def solveIt(inputData):
     data.write(";\n")
     data.close()
 
-    # build a trivial solution
-    # every node has its own color
-    solution = range(0, nodeCount)
+    process = Popen(['ampl', 'coloring.run'],stdout=PIPE)
+    (stdout, stderr) = process.communicate()
 
+    output = open("coloring.out","r")
+    solution = output.read()
     # prepare the solution in the specified output format
     outputData = str(nodeCount) + ' ' + str(0) + '\n'
-    outputData += ' '.join(map(str, solution))
+    outputData += solution
+    #outputData += ' '.join(map(str, solution))
 
     return outputData
 
