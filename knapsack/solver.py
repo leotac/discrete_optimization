@@ -27,7 +27,7 @@ def solveIt(inputData):
     import dp
     try:
        value, taken = dp.inline_dp(capacity,values,weights)
-       optimal = 1 
+       optimal = 1
     except MemoryError:
        factor = 100
        print "Memory Error on instance with capacity", capacity

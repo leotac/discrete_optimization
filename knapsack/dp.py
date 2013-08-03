@@ -4,7 +4,7 @@ def approximate(capacity, values, weights, factor):
 
    capacity = capacity/factor
    weights =  np.ceil(np.array(weights, dtype=float)/factor)
-   return dp(capacity, values, weights)
+   return inline_dp(capacity, values, weights)
 
 
 def dp(capacity, values, weights):

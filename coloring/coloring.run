@@ -1,0 +1,26 @@
+model coloring.mod;
+
+param datafile symbolic := 'data/gc_250_1';
+display datafile;
+param i;
+param j;
+
+read N < (datafile);
+read M < (datafile);
+
+let V := 0..N-1;
+
+for{e in 1..M}{
+   read i < (datafile);
+   read j < (datafile);
+   let E := E union {(i,j)};
+}
+display "hehe";
+
+#display E,V;
+
+option solver cplexamp;
+option cplex_options 'mipdisplay=2 symmetry=5';
+solve;
+display colors;
+#display{v in V, c in COLORS : c <= colors.val} assignment[v,c];
