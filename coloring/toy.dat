@@ -1,0 +1,5 @@
+data;
+param N := 4;
+param M := 3;
+
+set E := (0,1) (1,2) (1,3);

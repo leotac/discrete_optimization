@@ -1,21 +1,5 @@
 model coloring.mod;
-
-param datafile symbolic := 'data/gc_250_1';
-display datafile;
-param i;
-param j;
-
-read N < (datafile);
-read M < (datafile);
-
-let V := 0..N-1;
-
-for{e in 1..M}{
-   read i < (datafile);
-   read j < (datafile);
-   let E := E union {(i,j)};
-}
-display "hehe";
+data coloring.dat;
 
 #display E,V;
 

@@ -18,6 +18,17 @@ def solveIt(inputData):
         parts = line.split()
         edges.append((int(parts[0]), int(parts[1])))
 
+    data = open("coloring.dat","w")
+    data.write("data;\n")
+    data.write("param N := " + str(nodeCount) + ";\n")
+    data.write("param M := " + str(edgeCount) + ";\n")
+
+    data.write("set E :=\n")
+    for e in edges:
+       data.write("("+str(e[0])+","+str(e[1])+")\n")
+    data.write(";\n")
+    data.close()
+
     # build a trivial solution
     # every node has its own color
     solution = range(0, nodeCount)

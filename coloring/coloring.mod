@@ -1,7 +1,7 @@
-param N; # := 4;
+param N;
 param M;
-set V default {}; #:= 0..N-1;
-set E within {V,V} default {}; #:= {(0,1),(1,2),(1,3)};
+set V := 0..N-1;
+set E within {V,V} default {};
 set COLORS := 0..N;
 
 var assignment{v in V, c in COLORS} binary;
