@@ -34,20 +34,6 @@ def solveIt(inputData):
        print "Try approximation algorithm with factor", factor
        value, taken = dp.approximate(capacity,values,weights, factor)
        optimal = 0 
-#       print "and items", items, ": fall back to greedy"
-#       # a trivial greedy algorithm for filling the knapsack
-#       # it takes items in-order until the knapsack is full
-#       value = 0
-#       weight = 0
-#       taken = []
-#
-#       for i in range(0, items):
-#           if weight + weights[i] <= capacity:
-#               taken.append(1)
-#               value += values[i]
-#               weight += weights[i]
-#           else:
-#               taken.append(0)
 
     # prepare the solution in the specified output format
     outputData = str(value) + ' ' + str(optimal) + '\n'

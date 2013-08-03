@@ -62,15 +62,18 @@ def dp(capacity, values, weights):
    #print "Optimum:", opt
    return opt, list(take)
 
-
+# Space optimized DP
 def inline_dp(capacity, values, weights):
 
    items = len(values)
    m = np.zeros((capacity+1), dtype=int)
+   m_old = np.zeros((capacity+1), dtype=int)
    #taken = np.zeros((items, capacity+1), dtype=int)
    taken = {}
+   used = {}
+   used_old = {}
 
-   print "Table size:", items*(capacity)
+   print "Table size:", 2*(capacity)
 
    chunk = items*capacity / 20 
 
@@ -81,11 +84,12 @@ def inline_dp(capacity, values, weights):
    for c in xrange(1,capacity+1):
       m[c]=0
 
-   for c in xrange(1,capacity+1):
-      for i in xrange(items):
-         percent = 100.0*(items*(c-1) + i)/(items*capacity)
-         #print percent
-         if (items*(c-1)+i) % chunk == 0:
+   for i in xrange(items):
+      used_old = used
+      used = {}
+      for c in xrange(1,capacity+1):
+         percent = 100.0*(i*(capacity)+c)/(items*capacity)
+         if (i*(capacity)+c) % chunk == 0:
             print percent
       
          # if weight of item i is greater than current capacity c, 
@@ -93,28 +97,27 @@ def inline_dp(capacity, values, weights):
          if weights[i] > c:
             if i==0:
                m[c] = 0
-            #else:
-            #   m[i,c] = m[i-1,c]
+               used[c] = []
+            else:
+               m[c] = m_old[c]
+               used[c] = list(used_old[c])
          # if weight of item i fits current capacity c, 
          # try to improve
          else:
             if i >= 1:
-               if (m[c-weights[i]] + values[i]) > m[c]:
-                  m[c] = m[c-weights[i]] + values[i]
-                  taken[i,c] = 1
+               if (m_old[c-weights[i]] + values[i]) > m_old[c]:
+                  m[c] = m_old[c-weights[i]] + values[i]
+                  used[c] = used_old.get(c-weights[i],[]) + [i]  
+               else:
+                  m[c] = m_old[c]
+                  used[c] = list(used_old[c])
             else:
                m[c] = values[i]
-               taken[i,c] = 1
+               used[c] = [i]  
+      m_old = m.copy()
 
    opt = m[capacity]
-   take = np.zeros(items, dtype=int)
-   i,c = items-1,capacity
-   while i>=0 and c>=0:
-      if taken.get((i,c)) == 1:
-         take[i] = 1
-         i,c = i-1, c-weights[i]
-      else:
-         i,c = i-1, c
+   take = [1 if i in used[capacity] else 0 for i in xrange(items)]
    #print "Optimal solution:", take
    #print "Optimum:", opt
-   return opt, list(take)
+   return opt, take
