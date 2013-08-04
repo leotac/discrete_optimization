@@ -32,7 +32,7 @@ def scip(nodeCount, edgeCount, edges):
     data.close()
 
     #process = Popen(['/opt/scipoptsuite/scip-3.0.1/examples/Coloring/bin/coloring', '-f', 'coloring.col'])
-    process = Popen(['/opt/scipoptsuite/scip-3.0.1/examples/Coloring/bin/coloring', '-c', 'read coloring.col', '-c', 'set limits time 20','-c', 'optimize', '-c','write problem coloring.csol','-c','quit'])
+    process = Popen(['/opt/scipoptsuite/scip-3.0.1/examples/Coloring/bin/coloring', '-c', 'read coloring.col', '-c', 'set limits time 120','-c', 'optimize', '-c','write problem coloring.csol','-c','quit'])
     #(stdout, stderr) = process.communicate()
     process.wait()
     
@@ -73,7 +73,7 @@ def solveIt(inputData):
     opt = opt.strip()
     solution = output.read()
     # prepare the solution in the specified output format
-    outputData = opt + ' ' + str(1) + '\n'
+    outputData = opt + ' ' + str(0) + '\n'
     outputData += solution
     #outputData += ' '.join(map(str, solution))
 
