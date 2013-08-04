@@ -13,4 +13,6 @@ display colors;
 printf{v in V, c in COLORS : c <= colors.val && assignment[v,c]==1} "%s %s\n",v,c;
 
 print{v in V, c in COLORS : c <= colors.val && assignment[v,c]==1} c;
+
+print colors > "coloring.out";
 print{v in V, c in COLORS : c <= colors.val && assignment[v,c]==1} c > "coloring.out";
